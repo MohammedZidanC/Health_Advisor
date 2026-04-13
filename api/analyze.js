@@ -1,4 +1,4 @@
-const { generateAIResponse } = require("../lib/gemini.js");
+const { generateAIResponse } = require("../lib/gemini");
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
