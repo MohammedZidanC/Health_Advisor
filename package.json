@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Health Advisor AI backend using Ollama",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "scripts": {},
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5"
