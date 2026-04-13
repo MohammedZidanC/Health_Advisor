@@ -15,18 +15,3 @@ A modern, fast web application acting as a medical assistant AI. This project us
    ```bash
    npm install
    ```
-
-## Adding your Gemini API Key
-
-This project requires a Google Gemini API Key to function correctly. 
-
-1. Create a `.env` file in the root of your project directory based on the provided `.env.example` file.
-2. Add your API key to the `.env` file!
-
-**Example `.env` file:**
-```env
-GEMINI_API_KEY=your_api_key_here
-```
-
-> **Warning:** NEVER commit your `.env` file to version control. It is already safely included in the `.gitignore`.
-
