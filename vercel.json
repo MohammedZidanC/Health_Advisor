@@ -4,6 +4,8 @@
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "animations.css", "use": "@vercel/static" },
     { "src": "animations.js", "use": "@vercel/static" },
+    { "src": "logo.svg", "use": "@vercel/static" },
+    { "src": "logo-full.svg", "use": "@vercel/static" },
     { "src": "logo.png", "use": "@vercel/static" },
     { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
