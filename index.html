@@ -387,8 +387,8 @@
         </div>
 
         <script>
-            // ==================== LOCAL OLLAMA BACKEND ====================
-            const BACKEND_URL = "http://localhost:3005";
+            // ==================== VERCEL SERVERLESS BACKEND ====================
+            const BACKEND_URL = "/api";
 
             let currentUser = null;
             let allUserData = JSON.parse(localStorage.getItem('healthAdvisorData')) || {};
