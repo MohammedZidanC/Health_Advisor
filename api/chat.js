@@ -1,4 +1,4 @@
-const { generateAIResponse } = require("../lib/gemini");
+const { generateAIResponse } = require("../lib/ai");
 
 // ==================== CHAT HISTORY (in-memory) ====================
 // Note: In a Serverless environment, this will reset when the function cold-starts.
