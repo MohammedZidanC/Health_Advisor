@@ -1,11 +1,11 @@
-import { generateAIResponse } from "../lib/gemini.js";
+const { generateAIResponse } = require("../lib/gemini.js");
 
 // ==================== CHAT HISTORY (in-memory) ====================
 // Note: In a Serverless environment, this will reset when the function cold-starts.
 const MAX_HISTORY = 5; // Keep last 5 exchanges (10 messages)
 const chatHistory = []; // [ { role: "user"|"assistant", content: "..." }, ... ]
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
