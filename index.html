@@ -612,7 +612,7 @@
                     if (fallback) {
                         displayResult(fallback, symptoms);
                     } else {
-                        alert("Analysis failed. Make sure Ollama is running.");
+                        alert("Analysis failed. Network error or API unreachable: " + err.message);
                     }
                 } finally {
                     btn.innerHTML = originalText;
@@ -793,7 +793,7 @@
 
                     let botMessage;
                     if (!response.ok || data.error) {
-                        botMessage = "⚠️ " + (data.error || "Something went wrong. Make sure Ollama is running with llama3.");
+                        botMessage = "⚠️ " + (data.error || "Something went wrong. API error.");
                     } else {
                         botMessage = data.response || "I didn't quite catch that. Could you rephrase?";
                     }
@@ -811,7 +811,7 @@
                     document.getElementById('typing-indicator').remove();
                     chatHistory.push({
                         role: "assistant",
-                        content: "⚠️ AI connection failed. Make sure Ollama is running."
+                        content: "⚠️ Network connection failed: " + err.message
                     });
                     renderChat();
                 }
