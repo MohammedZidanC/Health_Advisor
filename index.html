@@ -394,81 +394,6 @@
             let allUserData = JSON.parse(localStorage.getItem('healthAdvisorData')) || {};
             let dropdownOpen = false;
 
-            // ==================== COMPREHENSIVE GLOBAL SYMPTOM DATABASE ====================
-            const symptomDatabase = [
-                { keywords: ["fever", "cough", "body ache", "chills", "fatigue", "headache", "sore throat"], disease: "Influenza (Flu)", riskPercent: 65, riskLevel: "Medium", emergency: "Rest, hydrate, monitor. Consult if fever >3 days.", specialist: "General Physician" },
-                { keywords: ["dry cough", "fever", "loss of taste", "loss of smell", "fatigue"], disease: "COVID-19", riskPercent: 70, riskLevel: "Medium", emergency: "Isolate and test. Seek care if breathing difficulty.", specialist: "General Physician" },
-                { keywords: ["sore throat", "fever", "painful swallowing", "swollen glands", "white patches"], disease: "Strep Throat", riskPercent: 72, riskLevel: "Medium", emergency: "May need antibiotics. See doctor within 24-48 hours.", specialist: "ENT Specialist / GP" },
-                { keywords: ["chest pain", "shortness of breath", "arm pain", "palpitations", "sweating", "nausea"], disease: "Possible Heart Attack / Angina", riskPercent: 92, riskLevel: "High", emergency: "EMERGENCY – Go to hospital immediately", specialist: "Cardiologist" },
-                { keywords: ["severe headache", "vomiting", "neck stiffness", "light sensitivity", "fever"], disease: "Possible Meningitis", riskPercent: 85, riskLevel: "High", emergency: "Seek emergency care immediately", specialist: "Neurologist" },
-                { keywords: ["migraine", "throbbing headache", "nausea", "light sensitivity"], disease: "Migraine", riskPercent: 45, riskLevel: "Low", emergency: "Rest in dark room.", specialist: "Neurologist" },
-                { keywords: ["runny nose", "sneezing", "itchy eyes", "congestion"], disease: "Allergic Rhinitis (Hay Fever)", riskPercent: 25, riskLevel: "Low", emergency: "Antihistamines.", specialist: "Allergist / GP" },
-                { keywords: ["rash", "itching", "hives", "swelling", "difficulty breathing"], disease: "Severe Allergic Reaction", riskPercent: 80, riskLevel: "High", emergency: "Emergency care if breathing issue.", specialist: "Allergist / Emergency" },
-                { keywords: ["cough", "shortness of breath", "wheezing", "chest tightness"], disease: "Asthma Exacerbation", riskPercent: 60, riskLevel: "Medium", emergency: "Use inhaler if prescribed.", specialist: "Pulmonologist" },
-                { keywords: ["vomiting", "diarrhea", "stomach pain", "nausea", "fever"], disease: "Gastroenteritis", riskPercent: 45, riskLevel: "Low", emergency: "Hydrate well.", specialist: "General Physician" },
-                { keywords: ["high fever", "severe body pain", "rash", "headache", "joint pain", "eye pain"], disease: "Dengue Fever", riskPercent: 78, riskLevel: "High", emergency: "Seek immediate medical attention (platelet check needed)", specialist: "Infectious Disease" },
-                { keywords: ["high fever", "headache", "abdominal pain", "constipation", "rose spots"], disease: "Typhoid Fever", riskPercent: 75, riskLevel: "High", emergency: "Seek prompt treatment", specialist: "Infectious Disease" },
-                { keywords: ["fever", "chills", "sweating", "headache", "muscle pain"], disease: "Malaria", riskPercent: 82, riskLevel: "High", emergency: "Immediate testing required", specialist: "Infectious Disease" },
-                { keywords: ["fever", "severe joint pain", "rash", "headache"], disease: "Chikungunya", riskPercent: 68, riskLevel: "Medium", emergency: "Pain management and rest", specialist: "General Physician" },
-                { keywords: ["persistent cough", "coughing blood", "weight loss", "night sweats", "fever"], disease: "Tuberculosis (TB)", riskPercent: 85, riskLevel: "High", emergency: "Seek immediate evaluation", specialist: "Pulmonologist" },
-                { keywords: ["extreme fatigue", "weight loss", "increased thirst", "frequent urination", "blurred vision"], disease: "Possible Diabetes", riskPercent: 55, riskLevel: "Medium", emergency: "Get blood sugar tested", specialist: "Endocrinologist" },
-                { keywords: ["jaundice", "yellow skin", "dark urine", "fatigue", "abdominal pain"], disease: "Hepatitis", riskPercent: 70, riskLevel: "Medium", emergency: "Seek medical evaluation", specialist: "Gastroenterologist" },
-                { keywords: ["sudden weakness", "facial droop", "speech difficulty", "arm weakness"], disease: "Stroke", riskPercent: 95, riskLevel: "High", emergency: "EMERGENCY – Call ambulance now", specialist: "Neurologist" },
-                { keywords: ["blood in stool", "abdominal pain", "weight loss", "change in bowel habits"], disease: "Possible Colorectal Issue", riskPercent: 65, riskLevel: "Medium", emergency: "See doctor for further tests", specialist: "Gastroenterologist" },
-                { keywords: ["fever", "right lower stomach pain", "nausea", "vomiting", "tenderness"], disease: "Appendicitis", riskPercent: 88, riskLevel: "High", emergency: "EMERGENCY – Possible surgery needed", specialist: "General Surgeon" },
-                { keywords: ["severe back pain", "side pain", "blood in urine", "painful urination"], disease: "Kidney Stones", riskPercent: 75, riskLevel: "High", emergency: "Seek prompt medical care", specialist: "Urologist" },
-                { keywords: ["fever", "productive cough", "chest pain", "shortness of breath", "crackling sound"], disease: "Pneumonia", riskPercent: 82, riskLevel: "High", emergency: "See a doctor immediately", specialist: "Pulmonologist" },
-                { keywords: ["fatigue", "pale skin", "dizziness", "cold hands", "brittle nails"], disease: "Anemia", riskPercent: 40, riskLevel: "Low", emergency: "Get a blood test", specialist: "Hematologist" },
-                { keywords: ["headache", "blurred vision", "nosebleed", "chest pain", "shortness of breath"], disease: "Hypertension (High Blood Pressure)", riskPercent: 65, riskLevel: "Medium", emergency: "Monitor BP and see GP", specialist: "Cardiologist / GP" },
-                { keywords: ["weight gain", "fatigue", "cold sensitivity", "dry skin", "constipation"], disease: "Hypothyroidism", riskPercent: 50, riskLevel: "Medium", emergency: "Get thyroid test (TSH)", specialist: "Endocrinologist" },
-                { keywords: ["tremors", "weight loss", "fast heartbeat", "heat sensitivity", "eye bulging"], disease: "Hyperthyroidism (Grave's)", riskPercent: 58, riskLevel: "Medium", emergency: "Consult Endocrinologist", specialist: "Endocrinologist" },
-                { keywords: ["joint pain", "morning stiffness", "swelling", "redness"], disease: "Rheumatoid Arthritis", riskPercent: 55, riskLevel: "Medium", emergency: "Long-term management required", specialist: "Rheumatologist" },
-                { keywords: ["burning urination", "frequent urination", "cloudy urine", "pelvic pain"], disease: "Urinary Tract Infection (UTI)", riskPercent: 62, riskLevel: "Medium", emergency: "May need antibiotics", specialist: "GP / Urologist" },
-                { keywords: ["itchy skin", "blisters", "fever", "loss of appetite"], disease: "Chickenpox", riskPercent: 65, riskLevel: "Medium", emergency: "Isolate and manage fever", specialist: "Pediatrician / GP" },
-                { keywords: ["painful rash", "blisters", "one side of body", "numbness", "burning"], disease: "Shingles", riskPercent: 70, riskLevel: "Medium", emergency: "See doctor for antivirals", specialist: "Dermatologist / GP" },
-                { keywords: ["yellow eyes", "yellow skin", "pale stools", "dark urine", "itchy"], disease: "Jaundice (Liver Issue)", riskPercent: 78, riskLevel: "High", emergency: "Immediate liver function test", specialist: "Hepatologist" },
-                { keywords: ["heartburn", "acid reflux", "chest pain", "difficulty swallowing"], disease: "GERD (Acid Reflux)", riskPercent: 40, riskLevel: "Low", emergency: "Antacids and lifestyle change", specialist: "Gastroenterologist" },
-                { keywords: ["bloating", "gas", "abdominal pain", "diarrhea", "constipation"], disease: "IBS (Irritable Bowel Syndrome)", riskPercent: 45, riskLevel: "Low", emergency: "Dietary adjustments", specialist: "Gastroenterologist" },
-                { keywords: ["anxiety", "rapid heartbeat", "shaking", "fear of dying", "sweating"], disease: "Panic Attack", riskPercent: 50, riskLevel: "Medium", emergency: "Deep breathing exercises", specialist: "Psychiatrist / Therapist" },
-                { keywords: ["persistent sadness", "loss of interest", "fatigue", "sleep issues"], disease: "Depression", riskPercent: 60, riskLevel: "Medium", emergency: "Counseling recommended", specialist: "Psychiatrist / Therapist" }
-            ];
-
-
-            function analyzeSymptoms(text) {
-                if (!text || text.trim() === "") return null;
-                const lower = text.toLowerCase();
-                let bestScore = -1;
-                let bestMatch = null;
-
-                for (const entry of symptomDatabase) {
-                    let score = 0;
-                    for (const kw of entry.keywords) {
-                        if (lower.includes(kw)) score += 12;
-                    }
-                    if (lower.includes("chest pain") || lower.includes("shortness of breath") || lower.includes("difficulty breathing")) score += 40;
-                    if (lower.includes("high fever") || lower.includes("severe")) score += 25;
-                    if (lower.includes("rash") && (lower.includes("fever") || lower.includes("pain"))) score += 30;
-                    if (lower.includes("neck stiffness") || lower.includes("light sensitivity")) score += 28;
-                    if (lower.includes("coughing blood") || lower.includes("blood in stool")) score += 45;
-                    if (lower.includes("sudden weakness") || lower.includes("facial droop") || lower.includes("speech difficulty")) score += 50;
-
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestMatch = entry;
-                    }
-                }
-
-                if (!bestMatch || bestScore < 12) {
-                    return {
-                        disease: "Viral Upper Respiratory Infection / Common Cold",
-                        riskPercent: 40,
-                        riskLevel: "Low",
-                        emergency: "Rest, hydrate, and monitor symptoms.",
-                        specialist: "General Physician"
-                    };
-                }
-                return bestMatch;
-            }
 
             function toggleDropdown() {
                 dropdownOpen = !dropdownOpen;
@@ -601,19 +526,13 @@
 
                     const isValidResult = res => res && typeof res.disease === 'string' && res.disease.trim() && ['Low', 'Medium', 'High'].includes(res.riskLevel) && typeof res.riskPercent === 'number';
                     if (!isValidResult(result)) {
-                        result = analyzeSymptoms(symptoms);
+                        throw new Error("Invalid format returned by AI.");
                     }
 
                     displayResult(result, symptoms);
                 } catch (err) {
                     console.error(err);
-                    // Fallback to local symptom database
-                    const fallback = analyzeSymptoms(symptoms);
-                    if (fallback) {
-                        displayResult(fallback, symptoms);
-                    } else {
-                        alert("Analysis failed. Network error or API unreachable: " + err.message);
-                    }
+                    alert("Analysis failed. API Error: " + err.message);
                 } finally {
                     btn.innerHTML = originalText;
                     btn.disabled = false;
