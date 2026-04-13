@@ -743,7 +743,8 @@
                                 list.innerHTML = `<p class="col-span-full text-center py-12 text-slate-500">No hospitals found nearby (within 5km). Try again or search manually.</p>`;
                             }
                         } catch (err) {
-                            list.innerHTML = `<p class="col-span-full text-red-500 text-center">Failed to fetch hospitals. Please try again later.</p>`;
+                            console.error("Overpass API Error:", err);
+                            list.innerHTML = `<p class="col-span-full text-red-500 text-center">Failed to fetch hospitals: ${err.message}. Please try again later.</p>`;
                         }
                         if (icon) icon.classList.remove('fa-spin');
                     },
