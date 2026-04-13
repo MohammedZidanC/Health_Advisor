@@ -404,3 +404,52 @@ button[onclick="runDeepAnalysis()"]:hover::after {
 .custom-scrollbar {
     scroll-behavior: smooth;
 }
+
+
+/* ===== Mobile Nav Menu Animation ===== */
+#mobile-nav-menu {
+    animation: mobile-menu-slide 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes mobile-menu-slide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-nav-link {
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+
+/* ===== Mobile Responsive Overrides ===== */
+@media (max-width: 767px) {
+    .screen-content {
+        height: calc(100vh - 64px);
+        padding: 1rem 0;
+    }
+
+    .hero-banner {
+        padding: 1.5rem 1.25rem;
+        border-radius: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .hero-stat {
+        min-width: 80px;
+        padding: 0.75rem 0.8rem;
+    }
+
+    .hero-stat-value {
+        font-size: 1.1rem;
+    }
+
+    .hero-stat-label {
+        font-size: 0.6rem;
+    }
+}

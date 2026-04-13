@@ -181,13 +181,14 @@
     <!-- MAIN APP -->
     <div id="main-app" class="hidden h-screen flex flex-col">
         <nav class="bg-white/95 backdrop-blur-lg border-b shadow-sm sticky top-0 z-50 shrink-0">
-            <div class="w-[94%] mx-auto px-8 py-5 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <img src="./logo.svg" alt="Logo" class="w-9 h-9">
-                    <h1 class="text-2xl font-bold text-slate-800">Health Advisor</h1>
+            <div class="w-[94%] mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between">
+                <div class="flex items-center gap-3 md:gap-4">
+                    <img src="./logo.svg" alt="Logo" class="w-8 h-8 md:w-9 md:h-9">
+                    <h1 class="text-lg md:text-2xl font-bold text-slate-800">Health Advisor</h1>
                 </div>
 
-                <div class="flex items-center gap-10 text-base font-medium">
+                <!-- Desktop Nav Links (hidden on mobile) -->
+                <div class="hidden md:flex items-center gap-10 text-base font-medium">
                     <a onclick="navigateTo(0)" class="cursor-pointer nav-active flex items-center gap-2"
                         id="nav-home"><i class="fas fa-stethoscope"></i> Diagnostic</a>
                     <a onclick="navigateTo(4)" class="cursor-pointer flex items-center gap-2 hover:text-emerald-600"
@@ -200,9 +201,10 @@
                         id="nav-history"><i class="fas fa-history"></i> History</a>
                 </div>
 
-                <div class="flex items-center gap-4 relative">
+                <div class="flex items-center gap-3 md:gap-4 relative">
+                    <!-- User pill (hidden on mobile to save space) -->
                     <div id="user-pill" onclick="toggleDropdown()"
-                        class="bg-emerald-50 border border-emerald-100 px-5 py-2.5 rounded-3xl flex items-center min-w-[120px] justify-center cursor-pointer gap-2 shadow-sm hover:shadow-md transition-all">
+                        class="hidden md:flex bg-emerald-50 border border-emerald-100 px-5 py-2.5 rounded-3xl items-center min-w-[120px] justify-center cursor-pointer gap-2 shadow-sm hover:shadow-md transition-all">
                         <span id="user-name" class="font-bold text-emerald-800 truncate max-w-[150px]"></span>
                         <i class="fas fa-chevron-down text-emerald-400 transition-transform" id="chevron"></i>
                     </div>
@@ -221,16 +223,49 @@
                         </a>
                     </div>
                     <button onclick="logout()"
-                        class="flex items-center justify-center w-11 h-11 bg-white border border-red-100 hover:bg-red-50 text-red-500 rounded-full cursor-pointer transition-colors shadow-sm"
+                        class="hidden md:flex items-center justify-center w-11 h-11 bg-white border border-red-100 hover:bg-red-50 text-red-500 rounded-full cursor-pointer transition-colors shadow-sm"
                         title="Logout">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
+
+                    <!-- Mobile Hamburger Button (visible only on mobile) -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                        class="md:hidden flex items-center justify-center w-10 h-10 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-xl cursor-pointer transition-all hover:bg-emerald-100"
+                        title="Menu">
+                        <i class="fas fa-bars text-lg" id="mobile-menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Nav Menu (slide-down, hidden by default) -->
+            <div id="mobile-nav-menu" class="md:hidden hidden border-t border-slate-100 bg-white/98 backdrop-blur-lg">
+                <div class="px-4 py-3 space-y-1">
+                    <a onclick="navigateTo(0); closeMobileMenu()" class="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all mobile-nav-link"
+                        data-nav="nav-home"><i class="fas fa-stethoscope text-emerald-600 w-5 text-center"></i> Diagnostic</a>
+                    <a onclick="navigateTo(4); closeMobileMenu()" class="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all mobile-nav-link"
+                        data-nav="nav-report"><i class="fas fa-file-alt text-emerald-600 w-5 text-center"></i> Report</a>
+                    <a onclick="navigateTo(1); closeMobileMenu()" class="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all mobile-nav-link"
+                        data-nav="nav-nearby"><i class="fas fa-hospital text-emerald-600 w-5 text-center"></i> Nearby</a>
+                    <a onclick="navigateTo(2); closeMobileMenu()" class="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all mobile-nav-link"
+                        data-nav="nav-chat"><i class="fas fa-robot text-emerald-600 w-5 text-center"></i> AI Companion</a>
+                    <a onclick="navigateTo(3); closeMobileMenu()" class="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all mobile-nav-link"
+                        data-nav="nav-history"><i class="fas fa-history text-emerald-600 w-5 text-center"></i> History</a>
+                    <div class="border-t border-slate-100 mt-2 pt-2">
+                        <div class="flex items-center gap-3 px-4 py-2">
+                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-emerald-600 text-sm"></i>
+                            </div>
+                            <span id="mobile-user-name" class="font-semibold text-sm text-slate-700 truncate"></span>
+                        </div>
+                        <a onclick="logout()" class="cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-red-500 hover:bg-red-50 transition-all">
+                            <i class="fas fa-sign-out-alt w-5 text-center"></i> Logout</a>
+                    </div>
                 </div>
             </div>
         </nav>
 
         <div class="flex-1 overflow-hidden">
-            <div class="max-w-5xl mx-auto h-full px-8 custom-scrollbar overflow-y-auto pt-8">
+            <div class="max-w-5xl mx-auto h-full px-4 md:px-8 custom-scrollbar overflow-y-auto pt-4 md:pt-8">
 
                 <div id="screen-0" class="screen">
                     <!-- HERO BANNER -->
@@ -396,7 +431,34 @@
             let currentUser = null;
             let allUserData = JSON.parse(localStorage.getItem('healthAdvisorData')) || {};
             let dropdownOpen = false;
+            let mobileMenuOpen = false;
 
+
+            function toggleMobileMenu() {
+                mobileMenuOpen = !mobileMenuOpen;
+                const menu = document.getElementById('mobile-nav-menu');
+                const icon = document.getElementById('mobile-menu-icon');
+                if (mobileMenuOpen) {
+                    menu.classList.remove('hidden');
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    menu.classList.add('hidden');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+
+            function closeMobileMenu() {
+                mobileMenuOpen = false;
+                const menu = document.getElementById('mobile-nav-menu');
+                const icon = document.getElementById('mobile-menu-icon');
+                if (menu) menu.classList.add('hidden');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
 
             function toggleDropdown() {
                 dropdownOpen = !dropdownOpen;
@@ -477,6 +539,8 @@
                     currentUser = allUserData[key];
                     const formatted = currentUser.name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
                     document.getElementById('user-name').textContent = "Hi, " + formatted;
+                    const mobileNameEl = document.getElementById('mobile-user-name');
+                    if (mobileNameEl) mobileNameEl.textContent = "Hi, " + formatted;
                     showMainApp();
                 } else {
                     document.getElementById('onboarding-screen').classList.remove('hidden');
@@ -494,6 +558,8 @@
                 if (currentUser) {
                     const formatted = currentUser.name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
                     document.getElementById('user-name').textContent = "Hi, " + formatted;
+                    const mobileNameEl = document.getElementById('mobile-user-name');
+                    if (mobileNameEl) mobileNameEl.textContent = "Hi, " + formatted;
                 }
                 document.getElementById('onboarding-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
@@ -751,6 +817,20 @@
                 document.querySelectorAll('nav a').forEach(a => a.classList.remove('nav-active'));
                 const navIds = ['nav-home', 'nav-nearby', 'nav-chat', 'nav-history', 'nav-report'];
                 if (navIds[n]) document.getElementById(navIds[n]).classList.add('nav-active');
+
+                // Highlight active mobile nav link
+                document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                    link.classList.remove('bg-emerald-50', 'text-emerald-700', 'font-semibold');
+                    link.classList.add('text-slate-700');
+                });
+                if (navIds[n]) {
+                    const activeMobileLink = document.querySelector(`.mobile-nav-link[data-nav="${navIds[n]}"]`);
+                    if (activeMobileLink) {
+                        activeMobileLink.classList.add('bg-emerald-50', 'text-emerald-700', 'font-semibold');
+                        activeMobileLink.classList.remove('text-slate-700');
+                    }
+                }
+
                 if (n === 3) renderHistory();
 
                 // Hide success message when navigating away from Diagnostic
