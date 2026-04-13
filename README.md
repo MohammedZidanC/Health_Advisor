@@ -30,17 +30,3 @@ GEMINI_API_KEY=your_api_key_here
 
 > **Warning:** NEVER commit your `.env` file to version control. It is already safely included in the `.gitignore`.
 
-## Running Locally
-
-To start the application, either use the provided batch script or run it manually:
-
-1. **Quick Start (Windows)**
-   ```bash
-   start.bat
-   ```
-
-2. **Manual Start**
-   ```bash
-   node server.js
-   ```
-   *The frontend application will be available at http://localhost:3005*
